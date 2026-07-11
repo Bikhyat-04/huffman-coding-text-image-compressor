@@ -88,4 +88,3 @@ All generated files (compressed payloads, reconstructed output, tree diagrams, a
 3. Prefix codes are generated per byte via tree traversal (`gen_codes`).
 4. Data is encoded into a packed bitstream (`encode_bytes`) and can be decoded back (`decode_bits`) to confirm correctness.
 5. Shannon entropy and bitstream entropy are computed to compare theoretical vs. achieved compression.
->>>>>>> bd20763d86db474fe53ea3fafe4d229f1438b15f
