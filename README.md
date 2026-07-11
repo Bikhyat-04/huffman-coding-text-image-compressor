@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # huffman-coding-text-image-compressor
 =======
 # Huffman Space Engine
