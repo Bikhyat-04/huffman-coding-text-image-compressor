@@ -49,8 +49,8 @@ DSA project/
 
 1. Clone the repository:
    ```bash
-   git clone <your-repo-url>
-   cd "DSA project"
+   git clone https://github.com/Bikhyat-04/huffman-coding-text-image-compressor.git
+   cd huffman-coding-text-image-compressor
    ```
 2. (Optional but recommended) create a virtual environment:
    ```bash
