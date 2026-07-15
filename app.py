@@ -15,8 +15,7 @@ import networkx as nx
 from node import Node
 from huffman import *
 
-
-def _pick_font(preferred, fallback='Helvetica'):
+def _pick_font(preferred, fallback='Times-Roman'):
     """Return the first installed font family from a preference list."""
     try:
         available = set(tkfont.families())
@@ -44,13 +43,18 @@ class HuffmanApp(tk.Tk):
     GLOW_ORANGE   = '#E0603E'  # Vibrant Accent Orange
     GLOW_TRAVERSE = '#2E7D4F'  # Fresh Green for Active Traversal Focus
     SHADOW        = '#D8CFC0'  # Soft ambient shadow tone
-
-    FONT_UI   = _pick_font(['Inter', 'Segoe UI', 'Helvetica Neue', 'Helvetica', 'Arial'])
+    FONT_UI = _pick_font([
+               'Segoe UI',
+             'Arial',
+            'Calibri',
+            'Verdana',
+           'Tahoma'
+            ], fallback='Segoe UI')
     FONT_MONO = _pick_font(['JetBrains Mono', 'Cascadia Code', 'Consolas', 'Courier New'])
 
     def __init__(self):
         super().__init__()
-        self.title("Huffman Space Engine")
+        self.title("Huffman Compressor and Visualization studio")
         self.geometry("1440x950")
         self.configure(bg=self.BG_LIGHT)
         
@@ -184,11 +188,17 @@ class HuffmanApp(tk.Tk):
         
         grid_wrapper = ttk.Frame(af, style='Panel.TFrame')
         grid_wrapper.pack(fill='x', padx=24, pady=15)
+        cols_per_row = 4
+        for c in range(cols_per_row):
+            grid_wrapper.columnconfigure(c, weight=1)
         for i, (label, key) in enumerate(metrics):
-            grid_wrapper.columnconfigure(i*2, weight=1)
-            grid_wrapper.columnconfigure(i*2+1, weight=1)
-            ttk.Label(grid_wrapper, text=label, style='Heading.TLabel').grid(row=0, column=i*2, sticky='w', padx=(10, 4))
-            ttk.Label(grid_wrapper, textvariable=self.analytics_vars[key], style='Value.TLabel').grid(row=1, column=i*2, sticky='w', padx=(10, 14), pady=(6, 0))
+            col = i % cols_per_row
+            row_base = (i // cols_per_row) * 2
+            top_pad = 0 if row_base == 0 else 22
+            ttk.Label(grid_wrapper, text=label, style='Heading.TLabel').grid(
+                row=row_base, column=col, sticky='w', padx=(10, 14), pady=(top_pad, 0))
+            ttk.Label(grid_wrapper, textvariable=self.analytics_vars[key], style='Value.TLabel').grid(
+                row=row_base + 1, column=col, sticky='w', padx=(10, 14), pady=(6, 0))
 
         # Horizontal Data Comparison Progress Bar Area
         self.bar_canvas = tk.Canvas(af, height=45, bg=self.PANEL_WHITE, highlightthickness=0)
